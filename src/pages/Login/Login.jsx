@@ -1,11 +1,24 @@
 import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
+
+  const {login} = useContext(AuthContext);
     const handleLogin = e => {
         e.preventDefault();
         const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        login(email, password)
+        .then(result => {
+          const user =  result.user;
+          console.log(user);
+        })
+        .catch(err => console.error(err));
     }
     return (
         <div className="hero w-ful mt-12 ">
